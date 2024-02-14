@@ -4,13 +4,10 @@ const user = {
 	skills: ["typescript", "javascript"],
 };
 
-function pickObjectKeys<T extends E, K extends keyof T, E extends Pick<T, K>>(user: T, prop: K[]): E {
-	return prop.reduce((acc, elem) => {
-		acc[elem] = user[elem];
-		return acc;
-	}, {} as E);
+function pickKeys<T, K extends Array<keyof T>>(obj: T, keys: K): Pick<T, K[number]> {
+  const newObj: Pick<T, K[number]> = {} as Pick<T, K[number]>;
+  keys.forEach(key => {
+    newObj[key] = obj[key];
+  });
+  return newObj;
 }
-
-const res1 = pickObjectKeys(user, ["name", "age"]);
-
-const res2 = pickObjectKeys(user, ["name", "age", "age"]);
